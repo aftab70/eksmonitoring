@@ -25,14 +25,22 @@ spec:
     spec:
       containers:
       - name: prometheus
-        image: aftab70/prometheus:latest
+        image: prom/prometheus
+        args:
+          - '--storage.tsdb.retention=6h'
+          - '--storage.tsdb.path=/prometheus'
+          - '--config.file=/etc/prometheus/prometheus.yml'
         ports:
         - name: web
           containerPort: 9090
+        volumeMounts:
+        - name: prometheus-config-volume
+          mountPath: /etc/prometheus
+        - name: prometheus-storage-volume
+          mountPath: /prometheus
+      restartPolicy: Always
       volumes:
-      - name: prometheus-config
-      configMap: 
-        name: prometheus-config
-        items:
-          - key: prometheus.yml
-            path: prometheus.yml
+      - name: prometheus-config-volume
+        configMap:
+            defaultMode: 420
+            name: prometheus-config
