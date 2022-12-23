@@ -30,9 +30,9 @@ spec:
         - name: web
           containerPort: 9090
       volumes:
-      - name: nginx-conf
+      - name: prometheus-config
       configMap: 
-        name: nginx-conf
+        name: prometheus-config
         items:
-          - key: nginx.conf
-            path: nginx.conf 
+          - key: prometheus.yml
+            path: prometheus.yml
