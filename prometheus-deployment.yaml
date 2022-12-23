@@ -14,11 +14,11 @@ spec:
     type: RollingUpdate
   selector:
     matchLabels:
-      app: prometheus
+      app: prom
   template:
     metadata:
       labels:
-        app: prometheus
+        app: prom
       annotations:
         prometheus.io/scrape: "true"
         prometheus.io/port: "9090"
